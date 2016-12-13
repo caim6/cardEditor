@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактор</title>
+    <meta name="viewport" content="width=1050, initial-scale=1.0">
+    <link href="css/styles.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+    <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="js/fabric.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.js"></script>
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <script type="text/javascript" src="js/autosize.js"></script>
+    <style type="text/css">
+        .imgTemplate:hover{
+            box-shadow: 0 0 10px white;
+        }
+        .imgTemplate{
+            width: 100%;
+            height: 100%;
+        }
+        a:focus, a:hover{
+            text-decoration: none;
+            color:'';
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <img hidden class="default" src="images/default.svg">
+    <header class="header">
+
+        <div class="row">
+            <div class="col-md-7">
+                <img src="images/logo.jpg" class="logo"  >
+            </div>
+            <div class="col-md-30">
+                <div class="col-md-14">
+                    <div>
+                        <select class=" attrFontName divTextAttributes hidden" title="Шрифт">
+                            <option value="Arial" selected>Arial</option>
+                            <option value="Courier" >Courier</option>
+                            <option value="Times New Roman" >Times New Roman</option>
+                            <option value="Verdana" >Verdana</option>
+                        </select>
+                        <select class="attrFontSize divTextAttributes hidden" title="Размер шрифта">
+                            <option value="15">15</option>
+                            <option value="20">20</option>
+                            <option value="25">25</option>
+                            <option value="30">30</option>
+                            <option value="35">35</option>
+                            <option value="40" selected>40</option>
+                            <option value="45">45</option>
+                            <option value="50">50</option>
+                            <option value="55">55</option>
+                            <option value="60">60</option>
+                            <option value="65">65</option>
+                            <option value="70">70</option>
+                            <option value="75">75</option>
+                            <option value="80">80</option>
+                            <option value="85">85</option>
+                            <option value="90">90</option>
+                            <option value="95">95</option>
+                        </select>
+                        <select title="Толщина обводки объекта" class="strokeWidth  divTextAttributes hidden">
+                            <option value="0" >0</option>
+                            <option value="0.1">0.1</option>
+                            <option value="0.2">0.2</option>
+                            <option value="0.3">0.3</option>
+                            <option value="0.4">0.4</option>
+                            <option value="0.5">0.5</option>
+                            <option value="0.6" >0.6</option>
+                            <option value="0.7" >0.7</option>
+                            <option value="0.8" >0.8</option>
+                            <option value="0.9" >0.9</option>
+                            <option value="1" >1</option>
+                        </select>
+                    </div>
+                    <div>
+                        <button class="attrText attrTextBold divTextAttributes hidden" title="Полужирный"> <img class="textDecorationIcon" src="images/bold.svg"></button>
+                        <button class="attrText attrTextItalic divTextAttributes hidden" title="Курсив"> <img class="textDecorationIcon" src="images/italic.svg"></button>
+                        <button class="attrText attrTextUnderline divTextAttributes hidden" title="Подчеркнутый"> <img class="textDecorationIcon" src="images/underline.svg"></button>
+
+                        <button class="attrText textAlign divTextAttributes hidden" data-align="left" title="Выровнять по левому краю"> <img class="textDecorationIcon" src="images/left-alignment.svg"></button>
+                        <button class="attrText textAlign divTextAttributes hidden" data-align="center" title="Выровнять по центру"> <img class="textDecorationIcon" src="images/center-alignment.svg"></button>
+                        <button class="attrText textAlign divTextAttributes hidden"  data-align="right" title="Выровнять по правому краю"> <img class="textDecorationIcon" src="images/right-alignment.svg"></button>
+
+                        <div class="btn-group  divShapeAttr divTextAttributes hidden" title="  Цвет объекта:">
+                            <button type="button" class="chooseColor btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+                                <i class="fa fa-2x fa-square selectedColor" style="text-shadow: rgb(0, 0, 0) -1px -1px 0px, rgb(0, 0, 0) 1px -1px 0px, rgb(0, 0, 0) -1px 1px 0px, rgb(0, 0, 0) 1px 1px 0px; color: rgb(244,204,204);"></i>
+                            </button>
+                            <ul class="dropdown-menu" style="padding-left: 5px; padding-right: 5px; width: 170px;">
+                                <a class="selectColor" href="#1" data-color="rgb(0,0,0)"><i class="fa fa-lg fa-square" style="color: rgb(0,0,0); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColor" href="#1" data-color="rgb(68,68,68)"><i class="fa fa-lg fa-square" style="color: rgb(68,68,68); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColor" href="#1" data-color="rgb(102,102,102)"><i class="fa fa-lg fa-square" style="color: rgb(102,102,102); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColor" href="#1" data-color="rgb(153,153,153)"><i class="fa fa-lg fa-square" style="color: rgb(153,153,153); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColor" href="#1" data-color="rgb(204,204,204)"><i class="fa fa-lg fa-square" style="color: rgb(204,204,204); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColor" href="#1" data-color="rgb(238,238,238)"><i class="fa fa-lg fa-square" style="color: rgb(238,238,238); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColor" href="#1" data-color="rgb(243,243,243)"><i class="fa fa-lg fa-square" style="color: rgb(243,243,243); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColor" href="#1" data-color="rgb(255,255,255)"><i class="fa fa-lg fa-square" style="color: rgb(255,255,255); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColor" href="#1" data-color="rgb(255,0,0)"><i class="fa fa-lg fa-square" style="color: rgb(255,0,0); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColor" href="#1" data-color="rgb(255,153,0)"><i class="fa fa-lg fa-square" style="color: rgb(255,153,0); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColor" href="#1" data-color="rgb(255,255,0)"><i class="fa fa-lg fa-square" style="color: rgb(255,255,0); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColor" href="#1" data-color="rgb(0,255,0)"><i class="fa fa-lg fa-square" style="color: rgb(0,255,0); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColor" href="#1" data-color="rgb(0,255,255)"><i class="fa fa-lg fa-square" style="color: rgb(0,255,255); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColor" href="#1" data-color="rgb(0,0,255)"><i class="fa fa-lg fa-square" style="color: rgb(0,0,255); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColor" href="#1" data-color="rgb(153,0,255)"><i class="fa fa-lg fa-square" style="color: rgb(153,0,255); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColor" href="#1" data-color="rgb(255,0,255)"><i class="fa fa-lg fa-square" style="color: rgb(255,0,255); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColor" href="#1" data-color="rgb(244,204,204)"><i class="fa fa-lg fa-square" style="color: rgb(244,204,204); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColor" href="#1" data-color="rgb(252,229,205)"><i class="fa fa-lg fa-square" style="color: rgb(252,229,205); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColor" href="#1" data-color="rgb(255,242,204)"><i class="fa fa-lg fa-square" style="color: rgb(255,242,204); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColor" href="#1" data-color="rgb(217,234,211)"><i class="fa fa-lg fa-square" style="color: rgb(217,234,211); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColor" href="#1" data-color="rgb(208,224,227)"><i class="fa fa-lg fa-square" style="color: rgb(208,224,227); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColor" href="#1" data-color="rgb(207,226,243)"><i class="fa fa-lg fa-square" style="color: rgb(207,226,243); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColor" href="#1" data-color="rgb(217,210,233)"><i class="fa fa-lg fa-square" style="color: rgb(217,210,233); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColor" href="#1" data-color="rgb(234,209,220)"><i class="fa fa-lg fa-square" style="color: rgb(234,209,220); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColor" href="#1" data-color="rgb(234,153,153)"><i class="fa fa-lg fa-square" style="color: rgb(234,153,153); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColor" href="#1" data-color="rgb(249,203,156)"><i class="fa fa-lg fa-square" style="color: rgb(249,203,156); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColor" href="#1" data-color="rgb(255,229,153)"><i class="fa fa-lg fa-square" style="color: rgb(255,229,153); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColor" href="#1" data-color="rgb(182,215,168)"><i class="fa fa-lg fa-square" style="color: rgb(182,215,168); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColor" href="#1" data-color="rgb(162,196,201)"><i class="fa fa-lg fa-square" style="color: rgb(162,196,201); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColor" href="#1" data-color="rgb(159,197,232)"><i class="fa fa-lg fa-square" style="color: rgb(159,197,232); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColor" href="#1" data-color="rgb(180,167,214)"><i class="fa fa-lg fa-square" style="color: rgb(180,167,214); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColor" href="#1" data-color="rgb(213,166,189)"><i class="fa fa-lg fa-square" style="color: rgb(213,166,189); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColor" href="#1" data-color="rgb(224,102,102)"><i class="fa fa-lg fa-square" style="color: rgb(224,102,102); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColor" href="#1" data-color="rgb(246,178,107)"><i class="fa fa-lg fa-square" style="color: rgb(246,178,107); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColor" href="#1" data-color="rgb(255,217,102)"><i class="fa fa-lg fa-square" style="color: rgb(255,217,102); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColor" href="#1" data-color="rgb(147,196,125)"><i class="fa fa-lg fa-square" style="color: rgb(147,196,125); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColor" href="#1" data-color="rgb(118,165,175)"><i class="fa fa-lg fa-square" style="color: rgb(118,165,175); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColor" href="#1" data-color="rgb(111,168,220)"><i class="fa fa-lg fa-square" style="color: rgb(111,168,220); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColor" href="#1" data-color="rgb(142,124,195)"><i class="fa fa-lg fa-square" style="color: rgb(142,124,195); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColor" href="#1" data-color="rgb(194,123,160)"><i class="fa fa-lg fa-square" style="color: rgb(194,123,160); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColor" href="#1" data-color="rgb(204,0,0)"><i class="fa fa-lg fa-square" style="color: rgb(204,0,0); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColor" href="#1" data-color="rgb(230,145,56)"><i class="fa fa-lg fa-square" style="color: rgb(230,145,56); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColor" href="#1" data-color="rgb(241,194,50)"><i class="fa fa-lg fa-square" style="color: rgb(241,194,50); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColor" href="#1" data-color="rgb(106,168,79)"><i class="fa fa-lg fa-square" style="color: rgb(106,168,79); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColor" href="#1" data-color="rgb(69,129,142)"><i class="fa fa-lg fa-square" style="color: rgb(69,129,142); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColor" href="#1" data-color="rgb(61,133,198)"><i class="fa fa-lg fa-square" style="color: rgb(61,133,198); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColor" href="#1" data-color="rgb(103,78,167)"><i class="fa fa-lg fa-square" style="color: rgb(103,78,167); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColor" href="#1" data-color="rgb(166,77,121)"><i class="fa fa-lg fa-square" style="color: rgb(166,77,121); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColor" href="#1" data-color="rgb(153,0,0)"><i class="fa fa-lg fa-square" style="color: rgb(153,0,0); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColor" href="#1" data-color="rgb(180,95,6)"><i class="fa fa-lg fa-square" style="color: rgb(180,95,6); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColor" href="#1" data-color="rgb(191,144,0)"><i class="fa fa-lg fa-square" style="color: rgb(191,144,0); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColor" href="#1" data-color="rgb(56,118,29)"><i class="fa fa-lg fa-square" style="color: rgb(56,118,29); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColor" href="#1" data-color="rgb(19,79,92)"><i class="fa fa-lg fa-square" style="color: rgb(19,79,92); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColor" href="#1" data-color="rgb(11,83,148)"><i class="fa fa-lg fa-square" style="color: rgb(11,83,148); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColor" href="#1" data-color="rgb(53,28,117)"><i class="fa fa-lg fa-square" style="color: rgb(53,28,117); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColor" href="#1" data-color="rgb(116,27,71)"><i class="fa fa-lg fa-square" style="color: rgb(116,27,71); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColor" href="#1" data-color="rgb(102,0,0)"><i class="fa fa-lg fa-square" style="color: rgb(102,0,0); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColor" href="#1" data-color="rgb(120,63,4)"><i class="fa fa-lg fa-square" style="color: rgb(120,63,4); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColor" href="#1" data-color="rgb(127,96,0)"><i class="fa fa-lg fa-square" style="color: rgb(127,96,0); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColor" href="#1" data-color="rgb(39,78,19)"><i class="fa fa-lg fa-square" style="color: rgb(39,78,19); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColor" href="#1" data-color="rgb(12,52,61)"><i class="fa fa-lg fa-square" style="color: rgb(12,52,61); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColor" href="#1" data-color="rgb(7,55,99)"><i class="fa fa-lg fa-square" style="color: rgb(7,55,99); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColor" href="#1" data-color="rgb(32,18,77)"><i class="fa fa-lg fa-square" style="color: rgb(32,18,77); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColor" href="#1" data-color="rgb(76,17,48)"><i class="fa fa-lg fa-square" style="color: rgb(76,17,48); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                            </ul>
+                        </div>
+                        <div class="btn-group divTextAttributes hidden" title="  Цвет обводки объекта:">
+                            <button type="button" class="chooseColor btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+                                <i class="fa fa-2x fa-square selectedColorStroke" style="text-shadow: rgb(0, 0, 0) -1px -1px 0px, rgb(0, 0, 0) 1px -1px 0px, rgb(0, 0, 0) -1px 1px 0px, rgb(0, 0, 0) 1px 1px 0px; color: rgb(244,204,204);"></i>
+                            </button>
+                            <ul class="dropdown-menu" style="padding-left: 5px; padding-right: 5px; width: 170px;">
+                                <a class="selectColorStroke" href="#1" data-color="rgb(0,0,0)"><i class="fa fa-lg fa-square" style="color: rgb(0,0,0); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColorStroke" href="#1" data-color="rgb(68,68,68)"><i class="fa fa-lg fa-square" style="color: rgb(68,68,68); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColorStroke" href="#1" data-color="rgb(102,102,102)"><i class="fa fa-lg fa-square" style="color: rgb(102,102,102); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColorStroke" href="#1" data-color="rgb(153,153,153)"><i class="fa fa-lg fa-square" style="color: rgb(153,153,153); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColorStroke" href="#1" data-color="rgb(204,204,204)"><i class="fa fa-lg fa-square" style="color: rgb(204,204,204); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColorStroke" href="#1" data-color="rgb(238,238,238)"><i class="fa fa-lg fa-square" style="color: rgb(238,238,238); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColorStroke" href="#1" data-color="rgb(243,243,243)"><i class="fa fa-lg fa-square" style="color: rgb(243,243,243); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColorStroke" href="#1" data-color="rgb(255,255,255)"><i class="fa fa-lg fa-square" style="color: rgb(255,255,255); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColorStroke" href="#1" data-color="rgb(255,0,0)"><i class="fa fa-lg fa-square" style="color: rgb(255,0,0); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColorStroke" href="#1" data-color="rgb(255,153,0)"><i class="fa fa-lg fa-square" style="color: rgb(255,153,0); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColorStroke" href="#1" data-color="rgb(255,255,0)"><i class="fa fa-lg fa-square" style="color: rgb(255,255,0); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColorStroke" href="#1" data-color="rgb(0,255,0)"><i class="fa fa-lg fa-square" style="color: rgb(0,255,0); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColorStroke" href="#1" data-color="rgb(0,255,255)"><i class="fa fa-lg fa-square" style="color: rgb(0,255,255); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColorStroke" href="#1" data-color="rgb(0,0,255)"><i class="fa fa-lg fa-square" style="color: rgb(0,0,255); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColorStroke" href="#1" data-color="rgb(153,0,255)"><i class="fa fa-lg fa-square" style="color: rgb(153,0,255); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColorStroke" href="#1" data-color="rgb(255,0,255)"><i class="fa fa-lg fa-square" style="color: rgb(255,0,255); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColorStroke" href="#1" data-color="rgb(244,204,204)"><i class="fa fa-lg fa-square" style="color: rgb(244,204,204); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColorStroke" href="#1" data-color="rgb(252,229,205)"><i class="fa fa-lg fa-square" style="color: rgb(252,229,205); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColorStroke" href="#1" data-color="rgb(255,242,204)"><i class="fa fa-lg fa-square" style="color: rgb(255,242,204); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColorStroke" href="#1" data-color="rgb(217,234,211)"><i class="fa fa-lg fa-square" style="color: rgb(217,234,211); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColorStroke" href="#1" data-color="rgb(208,224,227)"><i class="fa fa-lg fa-square" style="color: rgb(208,224,227); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColorStroke" href="#1" data-color="rgb(207,226,243)"><i class="fa fa-lg fa-square" style="color: rgb(207,226,243); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColorStroke" href="#1" data-color="rgb(217,210,233)"><i class="fa fa-lg fa-square" style="color: rgb(217,210,233); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColorStroke" href="#1" data-color="rgb(234,209,220)"><i class="fa fa-lg fa-square" style="color: rgb(234,209,220); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColorStroke" href="#1" data-color="rgb(234,153,153)"><i class="fa fa-lg fa-square" style="color: rgb(234,153,153); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColorStroke" href="#1" data-color="rgb(249,203,156)"><i class="fa fa-lg fa-square" style="color: rgb(249,203,156); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColorStroke" href="#1" data-color="rgb(255,229,153)"><i class="fa fa-lg fa-square" style="color: rgb(255,229,153); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColorStroke" href="#1" data-color="rgb(182,215,168)"><i class="fa fa-lg fa-square" style="color: rgb(182,215,168); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColorStroke" href="#1" data-color="rgb(162,196,201)"><i class="fa fa-lg fa-square" style="color: rgb(162,196,201); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColorStroke" href="#1" data-color="rgb(159,197,232)"><i class="fa fa-lg fa-square" style="color: rgb(159,197,232); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColorStroke" href="#1" data-color="rgb(180,167,214)"><i class="fa fa-lg fa-square" style="color: rgb(180,167,214); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColorStroke" href="#1" data-color="rgb(213,166,189)"><i class="fa fa-lg fa-square" style="color: rgb(213,166,189); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColorStroke" href="#1" data-color="rgb(224,102,102)"><i class="fa fa-lg fa-square" style="color: rgb(224,102,102); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColorStroke" href="#1" data-color="rgb(246,178,107)"><i class="fa fa-lg fa-square" style="color: rgb(246,178,107); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColorStroke" href="#1" data-color="rgb(255,217,102)"><i class="fa fa-lg fa-square" style="color: rgb(255,217,102); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColorStroke" href="#1" data-color="rgb(147,196,125)"><i class="fa fa-lg fa-square" style="color: rgb(147,196,125); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColorStroke" href="#1" data-color="rgb(118,165,175)"><i class="fa fa-lg fa-square" style="color: rgb(118,165,175); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColorStroke" href="#1" data-color="rgb(111,168,220)"><i class="fa fa-lg fa-square" style="color: rgb(111,168,220); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColorStroke" href="#1" data-color="rgb(142,124,195)"><i class="fa fa-lg fa-square" style="color: rgb(142,124,195); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColorStroke" href="#1" data-color="rgb(194,123,160)"><i class="fa fa-lg fa-square" style="color: rgb(194,123,160); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColorStroke" href="#1" data-color="rgb(204,0,0)"><i class="fa fa-lg fa-square" style="color: rgb(204,0,0); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColorStroke" href="#1" data-color="rgb(230,145,56)"><i class="fa fa-lg fa-square" style="color: rgb(230,145,56); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColorStroke" href="#1" data-color="rgb(241,194,50)"><i class="fa fa-lg fa-square" style="color: rgb(241,194,50); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColorStroke" href="#1" data-color="rgb(106,168,79)"><i class="fa fa-lg fa-square" style="color: rgb(106,168,79); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColorStroke" href="#1" data-color="rgb(69,129,142)"><i class="fa fa-lg fa-square" style="color: rgb(69,129,142); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColorStroke" href="#1" data-color="rgb(61,133,198)"><i class="fa fa-lg fa-square" style="color: rgb(61,133,198); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColorStroke" href="#1" data-color="rgb(103,78,167)"><i class="fa fa-lg fa-square" style="color: rgb(103,78,167); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColorStroke" href="#1" data-color="rgb(166,77,121)"><i class="fa fa-lg fa-square" style="color: rgb(166,77,121); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColorStroke" href="#1" data-color="rgb(153,0,0)"><i class="fa fa-lg fa-square" style="color: rgb(153,0,0); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColorStroke" href="#1" data-color="rgb(180,95,6)"><i class="fa fa-lg fa-square" style="color: rgb(180,95,6); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColorStroke" href="#1" data-color="rgb(191,144,0)"><i class="fa fa-lg fa-square" style="color: rgb(191,144,0); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColorStroke" href="#1" data-color="rgb(56,118,29)"><i class="fa fa-lg fa-square" style="color: rgb(56,118,29); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColorStroke" href="#1" data-color="rgb(19,79,92)"><i class="fa fa-lg fa-square" style="color: rgb(19,79,92); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColorStroke" href="#1" data-color="rgb(11,83,148)"><i class="fa fa-lg fa-square" style="color: rgb(11,83,148); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColorStroke" href="#1" data-color="rgb(53,28,117)"><i class="fa fa-lg fa-square" style="color: rgb(53,28,117); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColorStroke" href="#1" data-color="rgb(116,27,71)"><i class="fa fa-lg fa-square" style="color: rgb(116,27,71); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColorStroke" href="#1" data-color="rgb(102,0,0)"><i class="fa fa-lg fa-square" style="color: rgb(102,0,0); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColorStroke" href="#1" data-color="rgb(120,63,4)"><i class="fa fa-lg fa-square" style="color: rgb(120,63,4); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColorStroke" href="#1" data-color="rgb(127,96,0)"><i class="fa fa-lg fa-square" style="color: rgb(127,96,0); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColorStroke" href="#1" data-color="rgb(39,78,19)"><i class="fa fa-lg fa-square" style="color: rgb(39,78,19); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColorStroke" href="#1" data-color="rgb(12,52,61)"><i class="fa fa-lg fa-square" style="color: rgb(12,52,61); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColorStroke" href="#1" data-color="rgb(7,55,99)"><i class="fa fa-lg fa-square" style="color: rgb(7,55,99); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColorStroke" href="#1" data-color="rgb(32,18,77)"><i class="fa fa-lg fa-square" style="color: rgb(32,18,77); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                                <a class="selectColorStroke" href="#1" data-color="rgb(76,17,48)"><i class="fa fa-lg fa-square" style="color: rgb(76,17,48); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                            </ul>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-1">
+                <div class="layerGroup divLayerAttributes hidden">
+                    <button class="btnLayerUp btnLayerAttributes"  data-name="layerUpOne" title="На уровень выше" ><img src="images/up-arrow.svg" class="layerIcon" > </button>
+                    <button class="btnLayerDown btnLayerAttributes" data-name="layerDownOne" title="На уровень ниже"><img src="images/angle-arrow-down.svg" class="layerIcon"> </button>
+                </div>
+            </div>
+            <div class="col-md-1">
+                <div class="layerGroup divLayerAttributes hidden">
+                    <button class="btnLayerUp btnLayerAttributes"  data-name="layerUp" title="На самый верх"><img src="images/chevron-up.svg" class="layerIcon"></button>
+                    <button class="btnLayerDown btnLayerAttributes" data-name="layerDown" title="На самый низ"><img src="images/thin-arrowheads-pointing-down.svg" class="layerIcon">  </button>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <button class="btnDeleteObject hidden"><img src="images/rubbish-bin-delete-button.svg" class="delete"><br> Удалить <br> объект</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="row">
+        <div style="position: fixed">
+            <div class="col-md-1 toolBar">
+                <div class="shape" data-id="square" title="Добавить прямоугольник на холст"><img src="images/square-shape-shadow.svg" class="iconShape"> </div>
+                <hr>
+                <div class="shape"  data-id="circle" title="Добавить круг на холст"><img src="images/circular-shape-silhouette.svg" class="iconShape"> </div>
+                <hr>
+                <div class="shape" data-id="triangle" title="Добавить треугольник на холст"><img src="images/triangle.svg" class="iconShape"> </div>
+                <hr>
+                <div class="shape erase"  title="Очистить фон"><img src="images/eraser_back.svg" class="iconShape"> </div>
+                <hr>
+                <div class="btn-group" style="margin-top: 0.3vw; margin-left: 1vw" title="  Цвет холста:">
+                    <button type="button" class="chooseColor btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+                        <i class="fa fa-2x fa-square selectedCanvasColor" style="text-shadow: rgb(0, 0, 0) -1px -1px 0px, rgb(0, 0, 0) 1px -1px 0px, rgb(0, 0, 0) -1px 1px 0px, rgb(0, 0, 0) 1px 1px 0px; color: rgb(255,255,255);"></i>
+                    </button>
+                    <ul class="dropdown-menu" style="padding-left: 5px; padding-right: 5px; width: 170px;">
+                        <a class="selectCanvasColor" href="#1" data-color="rgb(0,0,0)"><i class="fa fa-lg fa-square" style="color: rgb(0,0,0); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                        <a class="selectCanvasColor" href="#1" data-color="rgb(68,68,68)"><i class="fa fa-lg fa-square" style="color: rgb(68,68,68); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                        <a class="selectCanvasColor" href="#1" data-color="rgb(102,102,102)"><i class="fa fa-lg fa-square" style="color: rgb(102,102,102); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                        <a class="selectCanvasColor" href="#1" data-color="rgb(153,153,153)"><i class="fa fa-lg fa-square" style="color: rgb(153,153,153); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                        <a class="selectCanvasColor" href="#1" data-color="rgb(204,204,204)"><i class="fa fa-lg fa-square" style="color: rgb(204,204,204); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                        <a class="selectCanvasColor" href="#1" data-color="rgb(238,238,238)"><i class="fa fa-lg fa-square" style="color: rgb(238,238,238); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                        <a class="selectCanvasColor" href="#1" data-color="rgb(243,243,243)"><i class="fa fa-lg fa-square" style="color: rgb(243,243,243); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                        <a class="selectCanvasColor" href="#1" data-color="rgb(255,255,255)"><i class="fa fa-lg fa-square" style="color: rgb(255,255,255); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                        <a class="selectCanvasColor" href="#1" data-color="rgb(255,0,0)"><i class="fa fa-lg fa-square" style="color: rgb(255,0,0); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                        <a class="selectCanvasColor" href="#1" data-color="rgb(255,153,0)"><i class="fa fa-lg fa-square" style="color: rgb(255,153,0); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                        <a class="selectCanvasColor" href="#1" data-color="rgb(255,255,0)"><i class="fa fa-lg fa-square" style="color: rgb(255,255,0); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                        <a class="selectCanvasColor" href="#1" data-color="rgb(0,255,0)"><i class="fa fa-lg fa-square" style="color: rgb(0,255,0); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                        <a class="selectCanvasColor" href="#1" data-color="rgb(0,255,255)"><i class="fa fa-lg fa-square" style="color: rgb(0,255,255); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                        <a class="selectCanvasColor" href="#1" data-color="rgb(0,0,255)"><i class="fa fa-lg fa-square" style="color: rgb(0,0,255); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                        <a class="selectCanvasColor" href="#1" data-color="rgb(153,0,255)"><i class="fa fa-lg fa-square" style="color: rgb(153,0,255); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                        <a class="selectCanvasColor" href="#1" data-color="rgb(255,0,255)"><i class="fa fa-lg fa-square" style="color: rgb(255,0,255); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                        <a class="selectCanvasColor" href="#1" data-color="rgb(244,204,204)"><i class="fa fa-lg fa-square" style="color: rgb(244,204,204); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                        <a class="selectCanvasColor" href="#1" data-color="rgb(252,229,205)"><i class="fa fa-lg fa-square" style="color: rgb(252,229,205); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                        <a class="selectCanvasColor" href="#1" data-color="rgb(255,242,204)"><i class="fa fa-lg fa-square" style="color: rgb(255,242,204); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                        <a class="selectCanvasColor" href="#1" data-color="rgb(217,234,211)"><i class="fa fa-lg fa-square" style="color: rgb(217,234,211); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                        <a class="selectCanvasColor" href="#1" data-color="rgb(208,224,227)"><i class="fa fa-lg fa-square" style="color: rgb(208,224,227); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                        <a class="selectCanvasColor" href="#1" data-color="rgb(207,226,243)"><i class="fa fa-lg fa-square" style="color: rgb(207,226,243); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                        <a class="selectCanvasColor" href="#1" data-color="rgb(217,210,233)"><i class="fa fa-lg fa-square" style="color: rgb(217,210,233); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                        <a class="selectCanvasColor" href="#1" data-color="rgb(234,209,220)"><i class="fa fa-lg fa-square" style="color: rgb(234,209,220); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                        <a class="selectCanvasColor" href="#1" data-color="rgb(234,153,153)"><i class="fa fa-lg fa-square" style="color: rgb(234,153,153); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                        <a class="selectCanvasColor" href="#1" data-color="rgb(249,203,156)"><i class="fa fa-lg fa-square" style="color: rgb(249,203,156); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                        <a class="selectCanvasColor" href="#1" data-color="rgb(255,229,153)"><i class="fa fa-lg fa-square" style="color: rgb(255,229,153); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                        <a class="selectCanvasColor" href="#1" data-color="rgb(182,215,168)"><i class="fa fa-lg fa-square" style="color: rgb(182,215,168); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                        <a class="selectCanvasColor" href="#1" data-color="rgb(162,196,201)"><i class="fa fa-lg fa-square" style="color: rgb(162,196,201); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                        <a class="selectCanvasColor" href="#1" data-color="rgb(159,197,232)"><i class="fa fa-lg fa-square" style="color: rgb(159,197,232); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                        <a class="selectCanvasColor" href="#1" data-color="rgb(180,167,214)"><i class="fa fa-lg fa-square" style="color: rgb(180,167,214); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                        <a class="selectCanvasColor" href="#1" data-color="rgb(213,166,189)"><i class="fa fa-lg fa-square" style="color: rgb(213,166,189); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                        <a class="selectCanvasColor" href="#1" data-color="rgb(224,102,102)"><i class="fa fa-lg fa-square" style="color: rgb(224,102,102); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                        <a class="selectCanvasColor" href="#1" data-color="rgb(246,178,107)"><i class="fa fa-lg fa-square" style="color: rgb(246,178,107); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                        <a class="selectCanvasColor" href="#1" data-color="rgb(255,217,102)"><i class="fa fa-lg fa-square" style="color: rgb(255,217,102); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                        <a class="selectCanvasColor" href="#1" data-color="rgb(147,196,125)"><i class="fa fa-lg fa-square" style="color: rgb(147,196,125); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                        <a class="selectCanvasColor" href="#1" data-color="rgb(118,165,175)"><i class="fa fa-lg fa-square" style="color: rgb(118,165,175); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                        <a class="selectCanvasColor" href="#1" data-color="rgb(111,168,220)"><i class="fa fa-lg fa-square" style="color: rgb(111,168,220); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                        <a class="selectCanvasColor" href="#1" data-color="rgb(142,124,195)"><i class="fa fa-lg fa-square" style="color: rgb(142,124,195); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                        <a class="selectCanvasColor" href="#1" data-color="rgb(194,123,160)"><i class="fa fa-lg fa-square" style="color: rgb(194,123,160); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                        <a class="selectCanvasColor" href="#1" data-color="rgb(204,0,0)"><i class="fa fa-lg fa-square" style="color: rgb(204,0,0); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                        <a class="selectCanvasColor" href="#1" data-color="rgb(230,145,56)"><i class="fa fa-lg fa-square" style="color: rgb(230,145,56); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                        <a class="selectCanvasColor" href="#1" data-color="rgb(241,194,50)"><i class="fa fa-lg fa-square" style="color: rgb(241,194,50); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                        <a class="selectCanvasColor" href="#1" data-color="rgb(106,168,79)"><i class="fa fa-lg fa-square" style="color: rgb(106,168,79); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                        <a class="selectCanvasColor" href="#1" data-color="rgb(69,129,142)"><i class="fa fa-lg fa-square" style="color: rgb(69,129,142); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                        <a class="selectCanvasColor" href="#1" data-color="rgb(61,133,198)"><i class="fa fa-lg fa-square" style="color: rgb(61,133,198); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                        <a class="selectCanvasColor" href="#1" data-color="rgb(103,78,167)"><i class="fa fa-lg fa-square" style="color: rgb(103,78,167); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                        <a class="selectCanvasColor" href="#1" data-color="rgb(166,77,121)"><i class="fa fa-lg fa-square" style="color: rgb(166,77,121); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                        <a class="selectCanvasColor" href="#1" data-color="rgb(153,0,0)"><i class="fa fa-lg fa-square" style="color: rgb(153,0,0); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                        <a class="selectCanvasColor" href="#1" data-color="rgb(180,95,6)"><i class="fa fa-lg fa-square" style="color: rgb(180,95,6); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                        <a class="selectCanvasColor" href="#1" data-color="rgb(191,144,0)"><i class="fa fa-lg fa-square" style="color: rgb(191,144,0); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                        <a class="selectCanvasColor" href="#1" data-color="rgb(56,118,29)"><i class="fa fa-lg fa-square" style="color: rgb(56,118,29); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                        <a class="selectCanvasColor" href="#1" data-color="rgb(19,79,92)"><i class="fa fa-lg fa-square" style="color: rgb(19,79,92); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                        <a class="selectCanvasColor" href="#1" data-color="rgb(11,83,148)"><i class="fa fa-lg fa-square" style="color: rgb(11,83,148); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                        <a class="selectCanvasColor" href="#1" data-color="rgb(53,28,117)"><i class="fa fa-lg fa-square" style="color: rgb(53,28,117); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                        <a class="selectCanvasColor" href="#1" data-color="rgb(116,27,71)"><i class="fa fa-lg fa-square" style="color: rgb(116,27,71); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                        <a class="selectCanvasColor" href="#1" data-color="rgb(102,0,0)"><i class="fa fa-lg fa-square" style="color: rgb(102,0,0); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                        <a class="selectCanvasColor" href="#1" data-color="rgb(120,63,4)"><i class="fa fa-lg fa-square" style="color: rgb(120,63,4); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                        <a class="selectCanvasColor" href="#1" data-color="rgb(127,96,0)"><i class="fa fa-lg fa-square" style="color: rgb(127,96,0); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                        <a class="selectCanvasColor" href="#1" data-color="rgb(39,78,19)"><i class="fa fa-lg fa-square" style="color: rgb(39,78,19); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                        <a class="selectCanvasColor" href="#1" data-color="rgb(12,52,61)"><i class="fa fa-lg fa-square" style="color: rgb(12,52,61); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                        <a class="selectCanvasColor" href="#1" data-color="rgb(7,55,99)"><i class="fa fa-lg fa-square" style="color: rgb(7,55,99); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                        <a class="selectCanvasColor" href="#1" data-color="rgb(32,18,77)"><i class="fa fa-lg fa-square" style="color: rgb(32,18,77); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                        <a class="selectCanvasColor" href="#1" data-color="rgb(76,17,48)"><i class="fa fa-lg fa-square" style="color: rgb(76,17,48); text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;"></i></a>
+                    </ul>
+                </div>
+                <!--<div class="systemIcon"><img src="images/question-sign.svg" class="iconShape"></div>
+                <hr>
+                <div class="shape"><img src="images/settings.svg" class="iconShape"> </div>-->
+            </div>
+
+            <div class="col-md-41 inset">
+                <a class="btnInset fSide" active="false" href="#">Лицо</a>
+                <p hidden class="fSideInSvg"></p>
+                <a class="btnInset sSide" active="false" href="#">Оборот </a>
+                <a style="display:none" class="btnInset iconClose" href="#" ><img  src="images/delete.svg" class="icon" title="Удалить обратную сторону визитки"></a>
+            </div>
+
+            <div class="col-md-30 cardRegion" id="cardRegion">
+                <div class="canvasCase"><canvas id="canvas" width="630" height="350"></canvas></div>
+                <div class="btnServiceGroup">
+                    <button class="btnService btnDeleteAll"><img src="images/eraser.svg" class="iconService">Очистить все</button>
+                    <button class="btnService canvRev"><img src="images/eye-black.svg" class="iconService">Предпросмотр</button>
+                    <div id="myModal" class="modal">
+                        <span class="close turnDown">×</span>
+                        <img class="modal-content" id="img01">
+                        <div  class="modal-content" id="caption"></div>
+                        <div class="send" id="send">
+                            <p><h3>Лицевая сторона:</h3></p>
+                            <p><canvas id="side" style=" border: 2px dotted black; margin: auto" width="630" height="350"></canvas></p>
+                            <p><h3>Обратная сторона:</h3></p>
+                            <p><canvas id="side2" style="border: 2px dotted black; margin: auto" width="630" height="350"></canvas></p>
+                            <form action="/editor" class="printData">
+                                <table>
+                                    <tbody>
+                                    <tr><td style="width: 10%"><strong>Имя:</strong></td> <td><input id="name" style="width: 100%" type="text" placeholder="Имя" required></td></tr>
+                                    <tr><td style="width: 10%"><strong>Телефон: </strong></td><td><input id="phone" style="width: 100%" type="text" placeholder="+38 0 00 000 00 00" required></td></tr>
+                                    <tr><td style="width: 10%"><strong>E-mail: </strong></td><td><input id="email" style="width: 100%" type="email" placeholder="email@mail.com" ></td></tr>
+                                    <tr><td style="width: 10%;vertical-align:top"><strong>Комментарий к заказу:</strong></td><td><textarea id="comment" type="text" rows="2" class="form-control textField"></textarea></tr>
+                                    </tbody>
+                                </table>
+                                <input type="submit" class="btnSend" value="Отправить на печать">
+                                <a style="margin-right: 10px; background: #ffed00" class="btnService turnDown backPrint">Вернуться </a>
+                            </form>
+
+                        </div>
+                         <div style="margin-left: 50%;margin-top: 20px; margin-bottom: 5%;">
+                             <a class="btnService setTemp hidden" >Выбрать шаблон</a>
+                            <a style="margin-right: 10px;" class="btnService turnDown back">Вернуться </a>
+
+                         </div>
+                    </div>
+
+                    <button class="btnPrint"><img src="images/print.svg" class="iconService">Печать</button>
+
+                </div>
+                <div class="templates" id="templates">
+                    <div class="col-md-14 cardTemplate"><img class="imgTemplate" data-id="1"  src="https://pp.vk.me/c638425/v638425984/10170/mFq7spe440A.jpg"></div>
+                    <div class="col-md-14 cardTemplate"><img class="imgTemplate" data-id="2"   src="https://pp.vk.me/c638425/v638425984/10178/g30x6ww9sJQ.jpg"></div>
+                    <div class="col-md-14 cardTemplate"><img class="imgTemplate" data-id="3"   src="https://pp.vk.me/c638425/v638425984/10180/_1i_ZDD-atY.jpg"></div>
+
+                    <div class="col-md-14 cardTemplate"><img class="imgTemplate" data-id="4" src="https://pp.vk.me/c638425/v638425984/10188/mm6Pwf1-QTA.jpg"></div>
+                    <div class="col-md-14 cardTemplate"><img class="imgTemplate" data-id="5" src="https://pp.vk.me/c638425/v638425984/10190/tFqhavSAG9I.jpg"></div>
+                    <div class="col-md-14 cardTemplate"><img class="imgTemplate" data-id="6" src="https://pp.vk.me/c638425/v638425984/10198/80GHp-pfnuQ.jpg"></div>
+
+                </div>
+            </div>
+
+            <div class="col-md-11 textImageProcessor">
+
+                <div class="col-md-42 textContainer">
+                    <div class="inscription">Текст</div>
+                    <div class="btnCaseText"><a href="#" class="btnAddText"><img src="images/add.svg" class="add" id="add"> Добавить текст</a></div>
+                    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="headingOne">
+                                <h4 class="panel-title">
+                                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" id="collapse" aria-controls="collapseOne">
+                                        <b>По шаблону</b> <img class="add" src="images/down-round-arrow.svg">
+                                        <p class="point" style="display: none"></p>
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                                <div class="panel-body">
+                                    <div id="textCont"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-42 imageContainer">
+                    <div class="inscription">Картинки</div>
+                    <div class="btnCaseImage"><a href="#" class="btnAddImage"><img src="images/upload-to-cloud.svg" class="add"> Загрузить картинку</a></div>
+                    <form style="width:0%; height:0%;" class="upload-form" data-type="big" role="form" method="post" action="#" enctype="multipart/form-data">
+                        <input type="file" class="form-control file" id="my-file" name="my-file" multiple="" accept="image/png,image/jpeg, image/jpg">
+                    </form>
+                    <div class="dnd dndCase"  id="dropbox" ><img src="images/picture.svg" class="pictureDnD"><br> Перетащите сюда картинку</div>
+                    <div class="custImages"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="js/editor.js"></script>
+<script src="js/forDnD.js"></script>
+</body>
+</html>
